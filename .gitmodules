@@ -1,0 +1,3 @@
+[submodule "modrinth_downloader"]
+	path = modrinth_downloader
+	url = https://github.com/BlockListed/modrinth_downloader
