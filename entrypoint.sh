@@ -17,5 +17,10 @@ fi
 chown -R minecraft:minecraft /config
 chown -R minecraft:minecraft /minecraft
 
+echo "----------"
+echo
 echo "Starting with ${RAM} of ram"
+echo
+echo "----------"
+
 sudo -u minecraft /entrypoint-afterroot.sh ${RAM}
