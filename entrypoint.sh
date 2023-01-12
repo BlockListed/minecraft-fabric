@@ -10,7 +10,7 @@ if [ ! -f /config/config.toml ]; then
 fi
 
 if [ ! -d /minecraft ]; then
-    echo "Error missing minecraft folder"
+    echo -e "\033[31mError missing minecraft folder!\033[0m"
     exit
 fi
 
