@@ -1,11 +1,13 @@
-FROM rust:1.66-slim-buster as BUILDER
+FROM rust:slim-buster as BUILDER
 WORKDIR /usr/src/modrinth_downloader
 COPY modrinth_downloader .
 
-RUN cargo install --path .
+RUN apt-get update && apt-get install -y musl-tools
+RUN rustup target add x86_64-unknown-linux-musl
+RUN cargo install --target=x86_64-unknown-linux-musl --path .
 
-FROM eclipse-temurin:17
-RUN apt-get update && apt-get upgrade -y && apt-get install sudo -y && rm -rf /var/lib/apt/lists/*
+FROM alpine:3
+RUN apk add --no-cache curl sudo openjdk17
 
 COPY --from=BUILDER /usr/local/cargo/bin/modrinth_downloader /usr/bin/
 COPY entrypoint.sh /

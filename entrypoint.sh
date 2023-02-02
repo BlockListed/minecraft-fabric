@@ -1,6 +1,5 @@
-#!/bin/bash
-groupadd -g ${PGID} minecraft
-useradd -u ${PUID} -g minecraft minecraft
+#!/bin/sh
+adduser -u ${PUID} -g ${PGID} -D minecraft
 
 set -e
 
