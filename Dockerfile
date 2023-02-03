@@ -7,7 +7,7 @@ RUN rustup target add x86_64-unknown-linux-musl
 RUN cargo install --target=x86_64-unknown-linux-musl --path .
 
 FROM alpine:3
-RUN apk add --no-cache curl sudo openjdk17
+RUN apk add --no-cache curl sudo openjdk17-jre
 
 COPY --from=BUILDER /usr/local/cargo/bin/modrinth_downloader /usr/bin/
 COPY entrypoint.sh /
