@@ -22,4 +22,4 @@ echo "Starting with ${RAM} of ram"
 echo
 echo "----------"
 
-sudo -u minecraft /entrypoint-afterroot.sh ${RAM}
+su minecraft -c "/entrypoint-afterroot.sh"
