@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 curl -1L https://meta.fabricmc.net/v2/versions/loader/1.19.3/0.14.14/0.11.1/server/jar -o /minecraft/fabric.jar
 
 mkdir -p /minecraft/mods
