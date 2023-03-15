@@ -4,7 +4,7 @@ COPY modrinth_downloader .
 
 RUN apt-get update && apt-get install -y musl-tools
 RUN rustup target add x86_64-unknown-linux-musl
-RUN cargo install --target=x86_64-unknown-linux-musl --path .
+RUN CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse cargo install --target=x86_64-unknown-linux-musl --path .
 
 FROM alpine:3
 RUN apk add --no-cache curl openjdk17-jre
