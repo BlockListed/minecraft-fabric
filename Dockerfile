@@ -9,7 +9,7 @@ RUN CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse cargo install --target=x86_64-unk
 FROM alpine:3
 RUN apk add --no-cache curl openjdk17-jre
 
-COPY --from=BUILDER /usr/local/cargo/bin/modrinth_downloader /usr/bin/
+COPY --from=BUILDER /usr/local/cargo/bin/modrinth-downloader /usr/bin/
 COPY entrypoint.sh /
 COPY entrypoint-afterroot.sh /
 COPY config.toml /default/config.toml
