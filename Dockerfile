@@ -13,14 +13,15 @@ RUN tar -xvf rcon.tar.gz
 RUN cp rcon-*_linux/rcon /usr/local/bin/
 
 FROM alpine:3
-RUN apk add --no-cache curl openjdk17-jre
-
-COPY --from=MODRINTH_BUILDER /usr/local/bin/modrinth-downloader /usr/bin/
 COPY entrypoint.sh /
 COPY entrypoint-afterroot.sh /
 COPY config.toml /default/config.toml
-COPY --from=RCON_BUILDER /usr/local/bin/rcon /usr/bin/
 COPY rcon.yaml /
+
+RUN apk add --no-cache curl openjdk17-jre
+
+COPY --from=MODRINTH_BUILDER /usr/local/bin/modrinth-downloader /usr/bin/
+COPY --from=RCON_BUILDER /usr/local/bin/rcon /usr/bin/
 
 ENV PUID=1000
 ENV PGID=1000
