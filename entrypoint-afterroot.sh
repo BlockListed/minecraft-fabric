@@ -7,11 +7,13 @@ curl -1L https://meta.fabricmc.net/v2/versions/loader/1.19.4/0.14.17/0.11.2/serv
 mkdir -p /minecraft/mods
 
 if [ -f /minecraft/server.properties ]; then
-    echo "Enabling RCON"
-    sed -i "s/^enable-rcon=false\$/enable-rcon=true/" /minecraft/server.properties
+    if [ "${RCON}" -eq "1" ]; then
+        echo "Enabling RCON"
+        sed -i "s/^enable-rcon=false\$/enable-rcon=true/" /minecraft/server.properties
 
-    echo "Setting RCON password to env RCON_PASSWORD or 'minecraft'"
-    sed -i "s/^rcon.password=\$/rcon.password=${RCON_PASSWORD:-minecraft}/" /minecraft/server.properties
+        echo "Setting RCON password to env RCON_PASSWORD or 'minecraft'"
+        sed -i "s/^rcon.password=\$/rcon.password=${RCON_PASSWORD:-minecraft}/" /minecraft/server.properties
+    fi
 fi
 
 /usr/bin/modrinth-downloader
