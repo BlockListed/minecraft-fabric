@@ -1,6 +1,6 @@
 FROM ubuntu:22.04 as MODRINTH_BUILDER
 ENV MODRINTH_VERSION=1.5.11
-WORKDIR /usr/bin
+WORKDIR /usr/local/bin
 RUN curl -1LO https://github.com/BlockListed/modrinth_downloader/releases/download/${MODRINTH_VERSION}/modrinth-downloader
 
 FROM ubuntu:22.04 as RCON_BUILDER
@@ -14,7 +14,7 @@ RUN cp rcon-*_linux/rcon /usr/local/bin/
 FROM alpine:3
 RUN apk add --no-cache curl openjdk17-jre
 
-COPY --from=BUILDER /usr/local/cargo/bin/modrinth-downloader /usr/bin/
+COPY --from=MODRINTH_BUILDER /usr/local/bin/modrinth-downloader /usr/bin/
 COPY entrypoint.sh /
 COPY entrypoint-afterroot.sh /
 COPY config.toml /default/config.toml
