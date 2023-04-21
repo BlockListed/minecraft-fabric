@@ -1,12 +1,13 @@
 FROM ubuntu:22.04 as MODRINTH_BUILDER
 ENV MODRINTH_VERSION=1.5.11
 WORKDIR /usr/local/bin
+RUN apt-get update && apt-get install -y curl
 RUN curl -1LO https://github.com/BlockListed/modrinth_downloader/releases/download/${MODRINTH_VERSION}/modrinth-downloader
 
 FROM ubuntu:22.04 as RCON_BUILDER
 ENV RCON_VERSION=0.10.3
 WORKDIR /usr/src/rcon-cli
-RUN apt-get update && apt-get install -y curl tar && rm -rf /var/apt/lists/*
+RUN apt-get update && apt-get install -y curl tar
 RUN curl -1L https://github.com/gorcon/rcon-cli/releases/download/v${RCON_VERSION}/rcon-${RCON_VERSION}-amd64_linux.tar.gz -o rcon.tar.gz
 RUN tar -xvf rcon.tar.gz
 RUN cp rcon-*_linux/rcon /usr/local/bin/
