@@ -16,9 +16,9 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-MINECRAFT_VERSION="1.19.4"
-FABRIC_LOADER_VERSION="0.14.19"
-FABRIC_INSTALLER_VERSION="0.11.2"
+MINECRAFT_VERSION = "1.19.4"
+FABRIC_LOADER_VERSION = "0.14.19"
+FABRIC_INSTALLER_VERSION = "0.11.2"
 
 # Download fabric in background
 fabric_download = subprocess.Popen(
