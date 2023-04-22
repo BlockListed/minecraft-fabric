@@ -55,7 +55,7 @@ if Path("/minecraft/server.properties").is_file():
             [
                 "sed",
                 "-i",
-                "'s/^enable-rcon=false$/enable-rcon=true/'",
+                "s/^enable-rcon=false$/enable-rcon=true/",
                 "/minecraft/server.properties",
             ]
         )
@@ -64,7 +64,7 @@ if Path("/minecraft/server.properties").is_file():
             [
                 "sed",
                 "-i",
-                f"'s/^rcon.password=$/rcon.password={rcon_password}/'",
+                f"s/^rcon.password=$/rcon.password={rcon_password}/",
                 "/minecraft/server.properties",
             ]
         )
