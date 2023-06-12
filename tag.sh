@@ -3,7 +3,7 @@ set -e
 
 date=$(date --iso-8601=date)
 
-GAME_VERSION="1.19.4"
+GAME_VERSION="1.20"
 
 [ $# != 1 ] && (echo "SINGLE ARGUMENT REQUIRED" && exit 1)
 [ -z "$1" ] && (echo "MESSAGE EMPTY" && exit 1)
