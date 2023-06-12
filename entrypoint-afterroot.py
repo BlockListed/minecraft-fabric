@@ -2,7 +2,7 @@
 import os
 from pathlib import Path
 import subprocess
-
+import requests
 
 class bcolors:
     HEADER = '\033[95m'
@@ -17,8 +17,10 @@ class bcolors:
 
 
 MINECRAFT_VERSION = "1.19.4"
-FABRIC_LOADER_VERSION = "0.14.19"
-FABRIC_INSTALLER_VERSION = "0.11.2"
+FABRIC_LOADER_VERSION = requests.get("https://meta.fabricmc.net/v2/versions/loader").json()[0]["version"]
+FABRIC_INSTALLER_VERSION = requests.get("https://meta.fabricmc.net/v2/versions/installer").json()[0]["version"]
+
+print(f"Downloading fabric {MINECRAFT_VERSION}-{FABRIC_LOADER_VERSION}-{FABRIC_INSTALLER_VERSION}")
 
 # Download fabric in background
 fabric_download = subprocess.Popen(
