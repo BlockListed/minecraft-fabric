@@ -1,5 +1,5 @@
 FROM ubuntu:22.04 as MODRINTH_BUILDER
-ENV MODRINTH_VERSION=1.6.1
+ENV MODRINTH_VERSION=1.7.0
 WORKDIR /usr/local/bin
 RUN apt-get update && apt-get install -y curl
 RUN curl -1LO https://github.com/BlockListed/modrinth_downloader/releases/download/${MODRINTH_VERSION}/modrinth-downloader
@@ -14,7 +14,7 @@ RUN tar -xvf rcon.tar.gz
 RUN cp rcon-*_linux/rcon /usr/local/bin/
 
 FROM alpine:3
-RUN apk add --no-cache curl openjdk17-jre python3
+RUN apk add --no-cache curl openjdk17-jre python3 py3-requests
 
 COPY --from=MODRINTH_BUILDER /usr/local/bin/modrinth-downloader /usr/bin/
 COPY --from=RCON_BUILDER /usr/local/bin/rcon /usr/bin/
