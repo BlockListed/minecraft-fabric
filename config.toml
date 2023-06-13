@@ -11,6 +11,5 @@ loader = "fabric"
 mod_ids = [
   "lithium",
   "ferrite-core",
-  "starlight",
   "krypton",
 ]
