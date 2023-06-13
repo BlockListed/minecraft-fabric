@@ -1,5 +1,5 @@
 FROM ubuntu:22.04 as MODRINTH_BUILDER
-ENV MODRINTH_VERSION=1.7.0
+ENV MODRINTH_VERSION=1.8.0
 WORKDIR /usr/local/bin
 RUN apt-get update && apt-get install -y curl
 RUN curl -1LO https://github.com/BlockListed/modrinth_downloader/releases/download/${MODRINTH_VERSION}/modrinth-downloader
