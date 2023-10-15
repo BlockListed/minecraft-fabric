@@ -16,7 +16,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-MINECRAFT_VERSION = "1.20"
+MINECRAFT_VERSION = "1.20.2"
 FABRIC_LOADER_VERSION = requests.get("https://meta.fabricmc.net/v2/versions/loader").json()[0]["version"]
 FABRIC_INSTALLER_VERSION = requests.get("https://meta.fabricmc.net/v2/versions/installer").json()[0]["version"]
 
