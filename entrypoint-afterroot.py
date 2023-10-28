@@ -3,18 +3,7 @@ import os
 from pathlib import Path
 import subprocess
 import requests
-
-
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+from colorama import Fore, Style
 
 
 MINECRAFT_VERSION = "1.20.2"
@@ -45,8 +34,8 @@ except FileExistsError:
     pass
 except Exception:
     print(
-        "%sCouldn't create minecraft mods folder!%s"
-        % (bcolors.FAIL, bcolors.ENDC))
+        Fore.RED + "Couldn't create minecraft mods folder!" + Style.RESET_ALL
+    )
 
     os.exit()
 
@@ -84,8 +73,7 @@ ram_args = [f"-Xms{ram}", f"-Xmx{ram}"]
 
 gc_args = "-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true".split()  # noqa: E501
 
-print("{}Starting minecraft server with jvm options:{} {}\"{}\"{}".format(bcolors.BOLD,
-      bcolors.ENDC, bcolors.OKGREEN, " ".join(ram_args + gc_args), bcolors.ENDC))
+print(Style.BRIGHT + "Starting minecraft server with jvm options: " + Style.RESET_ALL + Fore.GREEN + "\"{}\"".format(" ".join(ram_args + gc_args)) + Style.RESET_ALL)
 
 args = ram_args + gc_args + ["-jar", "fabric.jar", "--nogui"]
 
