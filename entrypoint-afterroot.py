@@ -4,6 +4,7 @@ from pathlib import Path
 import subprocess
 import requests
 
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -17,10 +18,13 @@ class bcolors:
 
 
 MINECRAFT_VERSION = "1.20.2"
-FABRIC_LOADER_VERSION = requests.get("https://meta.fabricmc.net/v2/versions/loader").json()[0]["version"]
-FABRIC_INSTALLER_VERSION = requests.get("https://meta.fabricmc.net/v2/versions/installer").json()[0]["version"]
+FABRIC_LOADER_VERSION = requests.get(
+    "https://meta.fabricmc.net/v2/versions/loader").json()[0]["version"]
+FABRIC_INSTALLER_VERSION = requests.get(
+    "https://meta.fabricmc.net/v2/versions/installer").json()[0]["version"]
 
-print(f"Downloading fabric {MINECRAFT_VERSION}-{FABRIC_LOADER_VERSION}-{FABRIC_INSTALLER_VERSION}")
+print(
+    f"Downloading fabric {MINECRAFT_VERSION}-{FABRIC_LOADER_VERSION}-{FABRIC_INSTALLER_VERSION}")
 
 # Download fabric in background
 fabric_download = subprocess.Popen(
@@ -79,6 +83,9 @@ ram = os.environ["RAM"]
 ram_args = [f"-Xms{ram}", f"-Xmx{ram}"]
 
 gc_args = "-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true".split()  # noqa: E501
+
+print("{}Starting minecraft server with options:{} {}\"{}\"{}".format(bcolors.BOLD,
+      bcolors.ENDC, bcolors.OKGREEN, ",".join(ram_args + gc_args), bcolors.ENDC))
 
 args = ram_args + gc_args + ["-jar", "fabric.jar", "--nogui"]
 
