@@ -56,9 +56,9 @@ jobs:
         env:
           REF: ${{ github.ref }}
         run: >-
-          echo $([[ $REF == refs/tags/* ]] && 
-          echo $REF | cut -d/ -f3 | cut -d_ -f1 | xargs -I {} echo \"version={}\" ||
-          echo \"version=none\") >> \"$GITHUB_OUTPUT\"
+          echo $([[ $REF == refs/tags/* ]] &&
+          echo $REF | cut -d/ -f3 | cut -d_ -f1 | xargs -I {} echo "version={}" ||
+          echo "version=none") >> "$GITHUB_OUTPUT"
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
