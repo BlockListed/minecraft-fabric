@@ -1,4 +1,5 @@
 FROM --platform=$BUILDPLATFORM ubuntu:22.04 as MODRINTH_BUILDER
+RUN echo "BUILDING FOR $TARGETPLATFORM"
 ARG MODRINTH_VERSION=1.8.0
 WORKDIR /usr/local/bin
 RUN apt-get update && apt-get install -y curl
@@ -7,6 +8,7 @@ RUN curl -1LO \
 RUN chmod +x modrinth-downloader
 
 FROM --platform=$BUILDPLATFORM ubuntu:22.04 as RCON_BUILDER
+RUN echo "BUILDING FOR $TARGETPLATFORM"
 ARG RCON_VERSION=0.10.3
 WORKDIR /usr/src/rcon-cli
 RUN apt-get update && apt-get install -y curl tar git
