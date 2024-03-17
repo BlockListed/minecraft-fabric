@@ -20,9 +20,6 @@ env:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        arch: ["amd64", "arm64"]
 
     runs-on: ubuntu-latest
     
@@ -73,7 +70,7 @@ jobs:
         uses: docker/build-push-action@master
         with:
           context: .
-          platforms: linux/${{ matrix.arch }}
+          platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

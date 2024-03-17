@@ -4,7 +4,7 @@ ARG MODRINTH_VERSION=1.8.0
 WORKDIR /usr/local/bin
 RUN apt-get update && apt-get install -y curl
 RUN curl -1LO \
-  https://github.com/BlockListed/modrinth_downloader/releases/download/${MODRINTH_VERSION}/modrinth-downloader
+  https://github.com/BlockListed/modrinth_downloader/releases/download/${MODRINTH_VERSION}/$([ "$TARGETPLATFORM" = "linux/arm64" ] && echo -n "aarch64-modrinth-donwloader" || echo -n "modrinth-downloader")
 RUN chmod +x modrinth-downloader
 
 FROM --platform=$BUILDPLATFORM ubuntu:22.04 as RCON_BUILDER
@@ -16,7 +16,7 @@ RUN curl -1L https://go.dev/dl/go1.22.1.linux-amd64.tar.gz | tar -C /usr/local -
 RUN git clone -b "v$RCON_VERSION" https://github.com/gorcon/rcon-cli.git
 RUN cd rcon-cli && \
   PATH=$PATH:/usr/local/go/bin \
-  GOARCH=amd64 \
+  GOARCH=$([ "$TARGETPLATFORM" = "linux/arm64" ] && echo -n "arm64" || echo -n "amd64") \
   go build -o /usr/local/bin/rcon ./cmd/gorcon/main.go
 
 FROM --platform=$TARGETPLATFORM alpine:3
