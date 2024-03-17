@@ -5,7 +5,7 @@ WORKDIR /usr/local/bin
 RUN echo "BUILDING FOR $TARGETPLATFORM"
 RUN apt-get update && apt-get install -y curl
 RUN curl -1L -o modrinth-downloader\
-  https://github.com/BlockListed/modrinth_downloader/releases/download/${MODRINTH_VERSION}/$([ "$TARGETPLATFORM" = "linux/arm64" ] && echo -n "aarch64-modrinth-donwloader" || echo -n "modrinth-downloader")
+  https://github.com/BlockListed/modrinth_downloader/releases/download/${MODRINTH_VERSION}/$([ "$TARGETPLATFORM" = "linux/arm64" ] && echo -n "aarch64-modrinth-downloader" || echo -n "modrinth-downloader")
 RUN chmod +x modrinth-downloader
 
 FROM --platform=$BUILDPLATFORM ubuntu:22.04 as RCON_BUILDER
