@@ -55,7 +55,10 @@ jobs:
         id: game_version
         env:
           REF: ${{ github.ref }}
-        run: "echo $([[ $REF == refs/tags/* ]] && echo $REF | cut -d/ -f3 | cut -d_ -f1 | xargs -I {} echo \"version={}\" || echo \"version=none\") >> \"$GITHUB_OUTPUT\""
+        run: >-
+          echo $([[ $REF == refs/tags/* ]] && 
+          echo $REF | cut -d/ -f3 | cut -d_ -f1 | xargs -I {} echo \"version={}\" ||
+          echo \"version=none\") >> \"$GITHUB_OUTPUT\"
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
@@ -68,7 +71,7 @@ jobs:
             type=sha
             type=ref,event=branch
             type=ref,event=tag
-            type=raw,value=${{ game_version.outputs.version }},enable=${{ game_version.outputs.version != 'none' }}
+            type=raw,value=${{ steps.game_version.outputs.version }},enable=${{ steps.game_version.outputs.version != 'none' }}
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
 
       # Build and push Docker image with Buildx (don't push on PR)
