@@ -38,9 +38,7 @@ docker run -it --rm -v SERVER_DIR:/minecraft -p 25565:25565 -e RAM=4G ghcr.io/bl
 ```
 
 ## Modrinth config
-Y``
-ou can mount a custom `modrinth-downloader` `config.toml` to `/config/config.toml
-```
+You can mount a custom `modrinth-downloader` `config.toml` to `/config/config.toml
 
 ```
 docker run -it --rm -v SERVER_DIR:/minecraft -v CUSTOM_CONFIG:/config/config.toml -p 25565:25565 ghcr.io/blocklisted/minecraft-fabric:1.20.4
