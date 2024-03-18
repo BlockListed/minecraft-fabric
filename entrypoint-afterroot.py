@@ -6,7 +6,7 @@ import requests
 from colorama import Fore, Style
 
 
-MINECRAFT_VERSION = "1.20.4"
+MINECRAFT_VERSION = "{{minecraft_version}}"
 FABRIC_LOADER_VERSION = requests.get(
     "https://meta.fabricmc.net/v2/versions/loader").json()[0]["version"]
 FABRIC_INSTALLER_VERSION = requests.get(

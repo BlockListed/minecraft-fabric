@@ -20,11 +20,15 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     
     permissions:
       packages: write
+
+    strategy:
+      matrix:
+        minecraft_version:
+          - "1.20.4"
     
     steps:
       - name: Checkout repository
@@ -50,16 +54,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Look, I'm sorry
-      - name: Check game version, if tagged
-        id: game_version
-        env:
-          REF: ${{ github.ref }}
-        run: >-
-          echo $([[ $REF == refs/tags/* ]] &&
-          echo $REF | cut -d/ -f3 | cut -d_ -f1 | xargs -I {} echo "version={}" ||
-          echo "version=none") >> "$GITHUB_OUTPUT"
-
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
@@ -70,17 +64,18 @@ jobs:
           tags: |
             type=sha
             type=ref,event=branch
-            type=ref,event=tag
-            type=raw,value=${{ steps.game_version.outputs.version }},enable=${{ steps.game_version.outputs.version != 'none' }}
+            type=raw,value=${{ matrix.minecraft_version }}
+            type=raw,value=${{ format("{0}_{1}", matrix.minecraft_version, github.ref_name) }},enable=${{ startsWith(github.ref, "/refs/tags/") }}
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
-        id: build-and-push
         uses: docker/build-push-action@v5
         with:
           context: .
+          build-args:
+            - "MINECRAFT_VERSION={{ matrix.minecraft_version }}"
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
