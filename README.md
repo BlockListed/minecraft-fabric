@@ -71,7 +71,7 @@ docker run -it --rm -v SERVER_DIR:/minecraft -p 25565:25565 -e RCON=1 -e RCON_PA
 ```
 
 You can then access any of thes rcone, either using a regular RCON client in the exposed cases or using the included `rcon-cli` utility accessible under `rcon`:
-(This example only works, if your container is called minecraft)
+> This example only works, if your container is called minecraft
 
 ```
 docker exec -it minecraft rcon
