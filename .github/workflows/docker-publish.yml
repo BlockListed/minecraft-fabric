@@ -66,7 +66,7 @@ jobs:
             type=sha
             type=ref,event=branch
             type=raw,value=${{ matrix.minecraft_version }}
-            type=raw,value=${{ format('{0}_{1}', matrix.minecraft_version, github.ref_name) }},enable=${{ startsWith(github.ref, '/refs/tags/') }}
+            type=raw,value=${{ format('{0}_{1}', matrix.minecraft_version, github.ref_name) }},enable=${{ startsWith(github.ref, 'refs/tags/') }}
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
 
       # Build and push Docker image with Buildx (don't push on PR)
