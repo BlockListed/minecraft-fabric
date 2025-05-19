@@ -78,7 +78,9 @@ if os.environ.get("ZGC") == "1":
 if "CUSTOM_GC" in os.environ:
     gc_args = os.environ["CUSTOM_GC"]
 
-print(Style.BRIGHT + "Starting minecraft server with jvm options: " + Style.RESET_ALL + Fore.GREEN + "\"{}\"".format(" ".join(ram_args + gc_args.split())) + Style.RESET_ALL)
+gc_args = gc_args.split()
+
+print(Style.BRIGHT + "Starting minecraft server with jvm options: " + Style.RESET_ALL + Fore.GREEN + "\"{}\"".format(" ".join(ram_args + gc_args)) + Style.RESET_ALL)
 
 args = ram_args + gc_args + ["-jar", "fabric.jar", "--nogui"]
 
