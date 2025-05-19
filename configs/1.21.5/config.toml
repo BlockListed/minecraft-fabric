@@ -1,0 +1,15 @@
+# Path where the mods should be downloaded
+mod_path = "/minecraft/mods"
+
+# Game version for mods
+version = "1.21.5"
+
+# Loader
+loader = "fabric"
+
+# Examples
+mod_ids = [
+  "lithium",
+  "ferrite-core",
+  "krypton",
+]
