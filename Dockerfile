@@ -28,7 +28,7 @@ RUN cd rcon-cli && \
 
 
 FROM --platform=$TARGETPLATFORM alpine:3
-RUN apk add --no-cache curl openjdk17-jre-headless python3 py3-requests py3-colorama
+RUN apk add --no-cache curl openjdk21-jre-headless python3 py3-requests py3-colorama
 
 COPY --from=MODRINTH_BUILDER /usr/local/bin/modrinth-downloader /usr/bin/
 COPY --from=RCON_BUILDER /usr/local/bin/rcon /usr/bin/

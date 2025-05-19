@@ -73,6 +73,11 @@ ram_args = [f"-Xms{ram}", f"-Xmx{ram}"]
 
 gc_args = "-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true".split()  # noqa: E501
 
+if os.environ.get("ZGC") == "1":
+    gc_args = "-XX:+UnlockExperimentalVMOptions -XX:+UseZGC -XX:+ZGenerational -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:-ZUncommit -XX:+ParallelRefProcEnabled"
+if "CUSTOM_GC" in os.environ:
+    gc_args = os.environ["CUSTOM_GC"]
+
 print(Style.BRIGHT + "Starting minecraft server with jvm options: " + Style.RESET_ALL + Fore.GREEN + "\"{}\"".format(" ".join(ram_args + gc_args)) + Style.RESET_ALL)
 
 args = ram_args + gc_args + ["-jar", "fabric.jar", "--nogui"]
